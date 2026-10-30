@@ -1,4 +1,4 @@
-# SQL Analysis | MySQL
+# World Layoffs Analysis – SQL Data Cleaning & Exploratory Data Analysis (EDA)
 
 ## Project Overview
 
