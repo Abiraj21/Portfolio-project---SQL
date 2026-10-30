@@ -1,41 +1,159 @@
-# World Layoffs Analysis – SQL Data Cleaning & Exploratory Data Analysis (EDA)
+# 🌍 World Layoffs Analysis – SQL Data Cleaning & Exploratory Data Analysis (EDA)
 
-## Project Overview
+## 📌 Project Overview
 
-This project demonstrates my hands-on learning journey with SQL and MySQL, where I applied fundamental and advanced SQL concepts to analyze data from a sample e-commerce database. The database includes customers, products, orders, and order items, allowing me to explore practical business scenarios related to customer behavior, sales performance, and revenue analysis.
+This project focuses on cleaning, transforming, and exploring a global layoffs dataset using **MySQL**. The objective is to identify data quality issues, standardize inconsistent records, handle missing values, and uncover meaningful insights into global workforce layoffs.
 
-Rather than focusing only on writing queries, I used this project to strengthen my understanding of relational databases, data manipulation, aggregation, data quality, and analytical problem-solving.
+Through SQL-based data cleaning and Exploratory Data Analysis (EDA), this project explores layoff trends across companies, industries, countries, funding stages, and time periods.
 
-## Key Concepts Applied
+## 🎯 Project Objectives
 
-- **SQL Fundamentals:** Practiced SELECT, WHERE, ORDER BY, LIMIT, aliases, and filtering techniques to retrieve relevant information.
-- **Joins and Set Operations:** Used INNER JOIN, LEFT JOIN, CROSS JOIN, UNION, and UNION ALL to combine and explore data across multiple tables.
-- **Aggregation and Conditional Logic:** Applied GROUP BY, HAVING, COUNT, SUM, AVG, CASE statements, and conditional aggregation to calculate business metrics.
-- **Subqueries and CTEs:** Used nested queries and Common Table Expressions (CTEs) to break complex analytical problems into smaller, more readable steps.
-- **Window Functions:** Implemented ROW_NUMBER(), RANK(), PARTITION BY, overall and category-level averages, and running totals to perform advanced analysis.
-- **Database Programming:** Explored temporary tables, stored procedures, triggers, and scheduled database events to understand database automation and reusable logic.
-- **Data Cleaning and Exploration:** Investigated missing values, inconsistent text, invalid prices, and potential data-quality issues.
+- Identify and remove duplicate records.
+- Standardize inconsistent text values and date formats.
+- Investigate and handle missing values.
+- Explore global layoff patterns and trends.
+- Identify companies and industries most affected by layoffs.
+- Analyze yearly and monthly layoff trends.
+- Calculate cumulative layoffs over time.
+- Rank companies based on their yearly layoff figures.
 
-## Practical Analysis and Challenges
+## 🛠️ Technologies Used
 
-Throughout the project, I worked on practical SQL problems, including identifying top-selling products by revenue, calculating customer spending, ranking customers within countries, comparing spending against country averages, and summarizing order statuses.
+- **Database:** MySQL
+- **Language:** SQL
+- **Dataset:** World Layoffs Dataset (Kaggle)
 
-One of the most valuable lessons was understanding that a query can execute successfully without producing the correct result. I learned to pay closer attention to join relationships, duplicate rows, aggregation logic, NULL handling, grouping rules, and the difference between grouped results and window-function calculations.
+## 📂 Dataset
 
-I also practiced breaking complex queries into manageable steps and validating results to improve accuracy and readability.
+The project uses the World Layoffs dataset, which contains information about company layoffs across different industries and countries.
 
-## Key Learning Outcomes
+**Dataset Source:** [World Layoffs Dataset – Kaggle](https://www.kaggle.com/datasets/swaptr/layoffs-2022)
 
-- Developed a stronger understanding of relational database structures and SQL query logic.
-- Improved my ability to solve multi-table data analysis problems.
-- Learned to use advanced SQL features to extract meaningful insights from data.
-- Gained practical exposure to database objects, data-quality checks, and automation concepts.
-- Strengthened my analytical thinking, debugging, and problem-solving skills.
+### Key Columns
 
-## Technologies
+| Column | Description |
+|---|---|
+| company | Company name |
+| location | Company location |
+| industry | Industry category |
+| total_laid_off | Number of employees laid off |
+| percentage_laid_off | Percentage of workforce laid off |
+| date | Date of layoffs |
+| stage | Company funding stage |
+| country | Country where layoffs occurred |
+| funds_raised_millions | Total funds raised in millions |
 
-**MySQL | SQL | Relational Databases | Data Analysis | Data Cleaning | Exploratory Data Analysis**
+## 🧹 Part 1: Data Cleaning
 
-## Project Goal
+The first stage focused on improving data quality and preparing the dataset for analysis.
 
-My goal was to move beyond memorizing SQL syntax and develop the ability to apply SQL concepts to realistic data problems. This project represents an important step in my ongoing journey toward Data Analytics and Data Engineering, with a continued focus on working with larger datasets, building reliable data pipelines, and applying these skills to real-world projects.
+### Cleaning Steps
+
+1. **Created Staging Tables**
+   - Created staging tables to preserve the original dataset.
+   - Performed all cleaning operations on separate tables.
+
+2. **Removed Duplicate Records**
+   - Used `ROW_NUMBER()` with `PARTITION BY` to identify duplicate records.
+   - Inspected potential duplicates before deleting them.
+   - Retained one record from each duplicate group.
+
+3. **Standardized Data**
+   - Used `TRIM()` to remove unnecessary spaces from company names.
+   - Standardized inconsistent industry values, including cryptocurrency-related labels.
+   - Corrected inconsistent country names.
+   - Converted date strings into the proper `DATE` data type using `STR_TO_DATE()`.
+
+4. **Handled Missing Values**
+   - Converted empty industry values into `NULL`.
+   - Used self-joins to populate missing industry values where matching company and location records contained valid information.
+   - Investigated missing layoff figures.
+
+5. **Removed Unnecessary Records**
+   - Removed records where both `total_laid_off` and `percentage_laid_off` were missing.
+   - Removed the temporary `row_num` column after duplicate removal.
+
+## 📊 Part 2: Exploratory Data Analysis (EDA)
+
+After cleaning the dataset, SQL queries were used to explore trends, patterns, and insights.
+
+### Analysis Performed
+
+| Analysis | Description |
+|---|---|
+| Maximum Layoffs | Identified the highest number and percentage of layoffs. |
+| 100% Layoffs | Identified companies that laid off their entire workforce. |
+| Company Analysis | Ranked companies based on total layoffs. |
+| Industry Analysis | Compared layoffs across different industries. |
+| Country Analysis | Identified countries with the highest layoffs. |
+| Yearly Trends | Analyzed total layoffs across different years. |
+| Funding Stage Analysis | Explored layoffs across different company funding stages. |
+| Monthly Trends | Examined monthly layoff patterns. |
+| Rolling Total | Calculated cumulative layoffs over time. |
+| Yearly Company Rankings | Identified the top five companies with the highest layoffs per year. |
+
+## 💡 Key SQL Concepts Demonstrated
+
+This project demonstrates practical applications of the following SQL concepts:
+
+- Data Definition Language (DDL)
+- Data Manipulation Language (DML)
+- `CREATE TABLE` and `ALTER TABLE`
+- `INSERT`, `UPDATE`, and `DELETE`
+- Aggregate Functions (`SUM`, `MAX`, `MIN`)
+- Filtering and Sorting (`WHERE`, `ORDER BY`)
+- Data Grouping (`GROUP BY`)
+- String Functions (`TRIM`, `SUBSTRING`)
+- Date Functions (`YEAR`, `STR_TO_DATE`)
+- Window Functions (`ROW_NUMBER`, `DENSE_RANK`, `SUM() OVER`)
+- Common Table Expressions (CTEs)
+- Self-Joins
+- Data Cleaning and Exploratory Data Analysis
+
+## 📁 Project Structure
+
+```text
+World-Layoffs-SQL-Project/
+│
+├── Data_Cleaning.sql
+│
+├── Exploratory_Data_Analysis.sql
+│
+└── README.md
+```
+
+## 🚀 How to Run the Project
+
+1. Download the dataset from Kaggle.
+2. Install and open MySQL Workbench or another MySQL-compatible environment.
+3. Create a database named `world_layoffs`.
+4. Import the original dataset into a table named `layoffs`.
+5. Open and execute `Data_Cleaning.sql`.
+6. Execute `Exploratory_Data_Analysis.sql` using the cleaned staging table.
+
+**Note:** Run the data cleaning script before executing the EDA script, as the analysis uses the cleaned `layoffs_staging2` table.
+
+## 📚 What I Learned
+
+Through this project, I gained practical experience in:
+
+- Working with real-world datasets in MySQL.
+- Identifying and resolving common data quality issues.
+- Applying SQL window functions to detect duplicates and rank records.
+- Using CTEs and self-joins to simplify complex queries.
+- Transforming raw data into structured and analysis-ready datasets.
+- Performing Exploratory Data Analysis to identify meaningful patterns and trends.
+
+## 👨‍💻 Author
+
+**Rajeshwaran Abiraj**
+
+Aspiring Data Analyst | Data Engineering Enthusiast
+
+- [GitHub](https://github.com/Abiraj21012)
+- [LinkedIn](https://www.linkedin.com/in/rajeshwaran-abiraj-a3565a255/)
+- [Portfolio](https://abiraj-portfolio.vercel.app/)
+
+---
+
+⭐ If you find this project interesting, feel free to explore the SQL scripts and share your feedback!
